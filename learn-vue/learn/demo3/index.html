@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo3</title>
+    <style>
+        .active {
+            background-color: #a10;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <a v-bind:class="{active: isActive}" v-bind:href="url">
+        <!--快捷写法 <a :class="{active: isActive}" v-bind:href="url">    -->
+            <!-- <img v-bind:src="img" > -->
+            点我哦
+        </a>
+    </div>
+
+    <script src="../lib/vue.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

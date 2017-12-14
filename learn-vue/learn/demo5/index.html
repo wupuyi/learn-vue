@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo5</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <label>
+            男
+            <input v-model="sex" type="checkbox" value="male">
+        </label>
+        <label>
+            女
+            <input v-model="sex" type="checkbox" value="female">
+        </label>
+        <br>
+        {{sex}} -->
+        <!-- <textarea v-model="article"></textarea> -->
+        <div>你来自哪里？</div>
+        <select v-model="form">
+            <option value="1">王家沟</option>
+            <option value="2">背背山</option>
+        </select>
+        {{form}}
+
+        <div>你要去哪里</div>
+        <select v-model="dest" multiple>
+            <option value="1">王家沟</option>
+            <option value="2">背背山</option>
+        </select>
+
+        {{dest}}
+    </div>
+
+    <script src="../lib/vue.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
