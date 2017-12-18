@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 插值与表达式</title>
+</head>
+
+<body>
+
+    <div id="app">
+        {{ book }}
+        {{ time }}
+        <span v-html="link"></span>
+        {{ number/10 }}
+        {{ isOK ? '确定' : '取消' }}
+        {{ text.split(',').reverse().join(',') }}
+        <span v-pre >{{ book }}</span>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                book: ' 《Vue.js 实战》 ',
+                time: (new Date()).toString(),
+                link: '<a href="#">只是一个链接</a>',
+                number: 100,
+                isOK: false,
+                text: '123,456'
+            },
+            mounted: function() {
+                var _this = this;  //声明一个变量指向Vue实力this,保证作用域一致。_this表示私有变量。
+                this.timer = setInterval(function() {
+                    _this.time = (new Date()).toString();   //修改time
+                }, 1000);
+            },
+            beforeDestroy: function() {
+                if(this.timer) {
+                    clearInterval(this.timer);    //Vue销毁前，清除定时器
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
