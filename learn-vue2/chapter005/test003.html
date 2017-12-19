@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 条件渲染指令</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <p v-if="status === 1">当status为1时显示这一行</p>
+        <p v-else-if="status === 2">当status为2时显示这一行</p>
+        <p v-else>否则会显示这一行</p>
+        <template v-if="status === 1">
+            <p>这是一段文本</p>
+        </template>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                status: 1
+            }
+        })
+    </script>
+</body>
+
+</html>

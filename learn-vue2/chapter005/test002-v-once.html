@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue v-once</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- app.message修改不会改变 -->
+        <span v-once>{{ message }}</span>
+        <div v-once>
+             <!-- app.message修改不会改变 -->
+            <span>{{ message }}</span>
+        </div>’
+         <!-- app.message修改会改变 -->
+        <span>{{ message }}</span>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: '这是一段文本'
+            }
+        })
+    </script>
+</body>
+
+</html>
