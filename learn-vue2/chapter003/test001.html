@@ -5,18 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vue 计算属性</title>
+    <title>Vue 计算属性——计算属性介绍</title>
 </head>
 
 <body>
 
     <div id="app">
-
+        <!-- {{ text.split(',').reverse().join(',') }} -->
+        <!-- 用计算属性改写 -->
+        {{ reversedText }}
+        <p>{{ newString }}</p>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
-
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: '123,456',
+                string: '明明就很啦啦啦'
+            },
+            computed: {
+                reversedText: function() {
+                    //这里的this指向的是当前的Vue实例
+                    return this.text.split(',').reverse().join(',');
+                },
+                newString: function() {
+                    return this.string.split('').join('-');
+                }
+            }
+        })
     </script>
 </body>
 
