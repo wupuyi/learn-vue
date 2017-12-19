@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 指令与事件</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <p v-if="show">显示这段文本</p>
+        <button v-on:click="handleClose">点击隐藏</button>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                show: true
+            },
+            methods: {
+                handleClose: function () {
+                    this.show = false;
+                },
+                init: function(text) {
+                    console.log(text);
+                }
+            },
+            mounted: function() {
+                this.init('在初始化时调用');  //在初始化时调用
+            }
+        });
+        app.init('通过外部调用');         //在Vue实力外部调用
+    </script>
+</body>
+
+</html>
