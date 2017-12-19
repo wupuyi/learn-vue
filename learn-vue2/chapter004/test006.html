@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue v-bind与计算属性</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <my-component :class="{ 'active': isActive }"></my-component>
+        <lala-component :class="[{'lala': isLala}, haha]"></lala-component>
+        <haha-component :class="classes"></haha-component>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<p class="article">一些文本</p>'
+        });
+
+        Vue.component('lala-component', {
+            template: '<p class="article">啦啦啦啦啦啦啦</p>'
+        });
+
+        Vue.component('haha-component', {
+            template: '<p class="article">啦啦啦啦啦啦啦</p>'
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                // lala: 'lalala',
+                isLala: true,
+                haha: 'hahaha'
+            },
+            computed: {
+                classes: function() {
+                    return [
+                        'haha',
+                        {
+                            ['haha' + this.haha]: this.haha,
+                        }
+                    ]
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

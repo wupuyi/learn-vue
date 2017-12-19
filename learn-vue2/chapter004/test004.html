@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue v-bind与计算属性 数组写法</title>
+</head>
+
+<body>
+
+    <!-- 数组写法 -->
+    <div id="app">
+        <div :class="[activeCls, errorCls]">
+        </div>
+    </div>
+    <!-- 三元表达式 -->
+    <div id="app1">
+        <div :class="[isActive ? activeCls2 : '', errorCls2]">
+        </div>
+    </div>
+
+    <!-- 在数组语法中用对象语法 -->
+    <div id="app2">
+        <div :class="[{ 'active': isActive3 }, errorCls3]">
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                activeCls: 'active',
+                errorCls: 'error'
+            }
+        });
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                isActive: true,
+                activeCls2: 'active',
+                errorCls2: 'error'
+            }
+        });
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                isActive3: true,
+                errorCls3: 'error'
+            }
+        })
+    </script>
+</body>
+
+</html>
