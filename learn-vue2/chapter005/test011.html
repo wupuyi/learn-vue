@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 方法与事件</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <a href="http://www.apple.com" @click="handleClick('禁止打开', $event)">打开链接</a>
+
+        <form @submit.prevent>
+            <input type="text" name="" value="">
+            <button type="submit" >提交</button>
+        </form>
+        <a href="http://www.baidu.com" @click.prevent>我是百度</a>
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                handleClick: function(message, event) {
+                    event.preventDefault();
+                    window.alert(message);
+                },
+                abc: function(event) {
+                    event.preventDefault();
+                    window.alert('胡咧咧');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

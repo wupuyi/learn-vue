@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 方法与事件</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        点击次数： {{ counter }}
+        <!-- <button @click="counter++"> +1 </button> -->
+
+        <button @click="handleAdd()"> +1 </button>
+        <button @click="handleAdd(10)"> +10 </button>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            },
+            methods: {
+                handleAdd: function(count) {
+                    count = count || 1;
+                    // this指向当前Vue实例app
+                    this.counter += count;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
