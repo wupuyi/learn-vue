@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue v-model 选择列表</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 单选 -->
+        <!-- <select v-model="selected">
+            <option>HTML</option>
+            <option value="js">JavaScript</option>
+            <option>CSS</option>
+        </select>
+        <p>{{ selected }}</p> -->
+        <!-- 多选 -->
+        <select v-model="selected" multiple>
+            <option>HTML</option>
+            <option value="js">JavaScript</option>
+            <option>CSS</option>
+        </select>
+        <p>{{ selected }}</p>
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                // 单选
+                // selected: 'html'
+                // 多选
+                selected: ['html', 'css']
+            }
+        })
+    </script>
+</body>
+
+</html>

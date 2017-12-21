@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue v-model 复选框</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- <input type="checkbox" v-model="checked" id="checked">
+        <label for="checked">选择状态：{{ checked }}</label> -->
+        <!-- 组合使用 -->
+        <input type="checkbox" v-model="checked" id="html" value="html">
+        <label for="html">HTML</label>
+        <input type="checkbox" v-model="checked" id="js" value="js">
+        <label for="js">JavaScript</label>
+        <input type="checkbox" v-model="checked" id="css" value="css">
+        <label for="css">CSS</label>
+        <p>选中的项是： {{ checked }}</p>
+        <template v-for="language in checked">
+            <p>{{ language }}</p>
+        </template>
+        <p v-for="user in users">
+            {{ user }}
+        </p>
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                checked: ['html', 'css'],
+                users: {
+                    name: 'lalala',
+                    value: 'hahhaha'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
