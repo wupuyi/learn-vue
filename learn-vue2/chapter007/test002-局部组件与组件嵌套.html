@@ -5,21 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vue 组件</title>
+    <title>Vue 组件嵌套</title>
 
 </head>
 
 <body>
     <div id="app">
+        <my-component></my-component>
     </div>
 
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
+        var Child = {
+            template: '<div>局部注册组件的内容</div>'
+        }
         var app = new Vue({
             el: '#app',
             data: {
-
+            },
+            components: {
+                'my-component': Child
             }
         })
     </script>
