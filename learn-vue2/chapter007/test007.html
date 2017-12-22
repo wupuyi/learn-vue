@@ -16,6 +16,8 @@
     <div id="app">
         <input type="text" v-model="parentMessage">
         <my-component :message="parentMessage"></my-component>
+        <input type="text" v-model="myTitle">
+        <title-component :my-title-small="myTitle"></title-component>
     </div>
 
 
@@ -25,10 +27,15 @@
             props: ['message'],
             template: '<div>{{ message }}</div>'
         });
+        Vue.component('title-component', {
+            props: ['myTitleSmall'],
+            template: '<h1>{{ myTitleSmall }} </h1>'
+        })
         var app = new Vue({
             el: '#app',
             data: {
-                parentMessage: ''
+                parentMessage: '',
+                myTitle: ''
             }
         })
     </script>

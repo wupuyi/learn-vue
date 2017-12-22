@@ -5,37 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vue 组件中对象的引用</title>
+    <title>Vue 组件通信</title>
 
 </head>
 
 <body>
+    <!-- 自定义事件 -->
     <div id="app">
-        <!-- 共用一个data中的counter -->
-        <my-component></my-component>
-        <my-component></my-component>
-        <my-component></my-component>
+        <p>总数：{{ total }}</p>
+        <my-component v-model="total"></my-component>
     </div>
-
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
-        var data = {
-            counter: 0
-        };
         Vue.component('my-component', {
-            template: '<button @click="counter++">{{ counter }}</button>',
-            data: function () {
-                // 共用一个data
-                // return data;
-                //单独给每个组件一个counter
+            template: '<button @click="handleClick">+1</button>',
+            data: function() {
                 return {
                     counter: 0
                 }
+            },
+            methods: {
+                handleClick: function() {
+                    this.counter++;
+                    this.$emit('input', this.counter);
+                }
             }
         });
+
         var app = new Vue({
-            el: '#app'
+            el: '#app',
+            data: {
+                total: 0
+            }
         })
     </script>
 </body>
