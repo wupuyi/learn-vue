@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 组件通信</title>
+
+</head>
+
+<body>
+    <!-- 自定义事件 -->
+    <div id="app">
+        <p>总数为：{{ total }}</p>
+        <my-component></my-component>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+            template: '\
+            <div>\
+                <button @click="add">+1</button>\
+                <button @click="reduce">-1</button>\
+            </div>',
+            data: function(){
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                add: function(){
+                    this.counter++;
+                },
+                reduce: function(){
+                    this.counter--;
+                }
+            }
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            }
+        })
+    </script>
+</body>
+
+</html>
