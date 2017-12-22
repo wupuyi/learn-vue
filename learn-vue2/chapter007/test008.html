@@ -12,10 +12,13 @@
 <body>
 
     <!-- 数组用法 -->
-    
+
     <div id="app">
-        <my-component message="来自父组件的数据"></my-component>
-        <my-component2 warning-text="注意这里的写法和驼峰的区别"></my-component2>
+        <!-- 注意v-bind 不适用v-bind传递的是字符串 -->
+        <!-- message.length = 9 -->
+        <my-component message="[1, 2, 3]"></my-component>       
+        <!-- message.length = 3 -->
+        <my-component :message="[1, 2, 3]"></my-component>
     </div>
 
 
@@ -23,15 +26,11 @@
     <script>
         Vue.component('my-component', {
             props: ['message'],
-            template: '<div>{{ message }}</div>'
+            template: '<div>{{ message.length }}</div>'
         });
-        Vue.component('my-component2', {
-            props: ['warningText'],
-            template: '<div>{{ warningText }}</div>'
-        }); 
         var app = new Vue({
-           el: '#app' 
-        });
+            el: '#app'
+        })
     </script>
 </body>
 

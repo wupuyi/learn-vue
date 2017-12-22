@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 使用props传递数据</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 情况一，保存父组件初始值 -->
+        <!-- initCount在这里要写为init-count -->
+        <my-component :init-count="1"></my-component>
+        <!-- 情况二，prop作为需要被转变为原始值传入, 使用计算属性-->
+        <my-component2 :width="100"></my-component2>
+    </div>
+      
+
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        // 情况一
+        Vue.component('my-component', {
+            props: ['initCount'],
+            template: '<div>{{ count }}</div>',
+            data: function() {
+                return {
+                    count: this.initCount
+                }
+            }
+        });
+        // 情况二
+        Vue.component('my-component2', {
+            props: ['width'],
+            template: '<div :style="style">组件内容</div>',
+            computed: {
+                style: function() {
+                    return {
+                        width: this.width + 'px'
+                    }
+                }
+            }
+        })
+
+        var app = new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>
