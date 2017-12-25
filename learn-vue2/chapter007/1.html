@@ -13,7 +13,9 @@
     <!-- 自定义事件 -->
     <div id="app">
         <p>总数为：{{ total }}</p>
-        <my-component></my-component>
+        <my-component 
+            @add="handleGetTotal"
+            @reduce="handleGetTotal"></my-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -21,8 +23,8 @@
         Vue.component('my-component', {
             template: '\
             <div>\
-                <button @click="add">+1</button>\
-                <button @click="reduce">-1</button>\
+                <button @click="addHandle">+1</button>\
+                <button @click="reduceHandle">-1</button>\
             </div>',
             data: function(){
                 return {
@@ -30,11 +32,15 @@
                 }
             },
             methods: {
-                add: function(){
+                addHandle: function(){
                     this.counter++;
+                    //子组件使用$emit()触发父组件的事件
+                    //触发add事件
+                    this.$emit('add', this.counter);
                 },
-                reduce: function(){
+                reduceHandle: function(){
                     this.counter--;
+                    this.$emit('reduce', this.counter);
                 }
             }
         })
@@ -43,6 +49,11 @@
             el: '#app',
             data: {
                 total: 0
+            },
+            methods: {
+                handleGetTotal: function(total) {
+                    this.total = total;
+                }
             }
         })
     </script>
