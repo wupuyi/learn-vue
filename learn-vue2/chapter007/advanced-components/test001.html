@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 组件高级用法</title>
+
+</head>
+
+<body>
+    <!-- 递归组件 -->
+    <!-- 给组件设置name选项，就可以在模板内递归调用 -->
+    <!-- 1、级联选择器   2、树形组件 -->
+    <div id="app">
+        <child-component :count="1"></child-component>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        Vue.component('child-component', {
+            name: 'child-component',
+            props: {
+                count: {
+                    type: Number,
+                    default: 1
+                }
+            },
+            template: '\
+            <div class="child">\
+                <child-component\
+                    :count="count + 1"\
+                    v-if="count < 3"></child-component>\
+            </div>'
+        });
+
+        var app = new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>
