@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 单个slot</title>
+
+</head>
+
+<body>
+    <!-- slot分发内容 -->
+    <!-- slot分发的内容，作用于是在父组件上的。 -->
+    <div id="app">
+        <!-- <child-component></child-component> -->
+        <child-component>
+            <p>分发的内容</p>
+            <p>更多分发的内容</p>
+        </child-component>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        Vue.component('child-component', {
+            template: '\
+            <div>\
+                <slot>\
+                    <p>如果父组件没有插入内容，我将作为默认出现</p>\
+                </slot>\
+            </div>'
+        });
+
+        var app = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+
+</html>
