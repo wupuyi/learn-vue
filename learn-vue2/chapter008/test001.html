@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第 8 章   自定义指令</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <!-- 基本用法 全局注册和局部注册 -->
+    <script>
+        // 注册自定义指令v-focus
+        //全局注册
+        Vue.directive('focus', {
+            //指令选项
+        });
+
+        //局部注册
+        var app = new Vue({
+            el: '#app',
+            directives: {
+                focus: {
+                    //指令选项
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
