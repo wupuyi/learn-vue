@@ -17,10 +17,14 @@
         <button @click="handleChangeView('A')">切换到A</button>
         <button @click="handleChangeView('B')">切换到B</button>
         <button @click="handleChangeView('C')">切换到C</button>
+        <component :is="hello"></component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
+        var world = {
+            template: '<p>Hello, World!</p>'
+        };
         var app = new Vue({
             el: '#app',
             components: {
@@ -35,14 +39,15 @@
                 }
             },
             data: {
-                currentView: 'comA'
+                currentView: 'comA',
+                hello: world
             },
             methods: {
                 handleChangeView: function(component){
                     this.currentView = 'com' + component;
                 }
             }
-        })
+        });
     </script>
 </body>
 
