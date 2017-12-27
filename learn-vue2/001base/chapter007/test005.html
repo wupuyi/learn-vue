@@ -16,13 +16,66 @@
         <my-component></my-component>
         <my-component></my-component>
     </div>
-
+    <h2>公用一个data中的counter</h2>
+    <div id="publicData">
+        <public-component></public-component>
+        <public-component></public-component>
+        <public-component></public-component>
+    </div>
+    <h2>独自的counter</h2>
+    <div id="private">
+        <private-component></private-component>
+        <private-component></private-component>
+        <private-component></private-component>
+    </div>
+    <div id="test">
+        <test-component></test-component>
+    </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
         var data = {
             counter: 0
         };
+        var publicData = {
+            counter: 0
+        }; 
+        Vue.component('test-component', {
+            template: '<button @click="nameHandler">叫你一声你敢答应吗</button>',
+            data: function () {
+                return {
+                    name: 'Puyi Wu'
+                }
+            },
+            methods: {
+                nameHandler() {
+                    window.alert('答应你麻痹' + this.name);
+                }
+            }
+        })      
+        var test = new Vue({
+            el: '#test'
+        }) 
+        Vue.component('public-component', {
+            template: '<button @click="counter++">{{ counter }}</button>',
+            data: function () {
+                return publicData;
+            }
+        });
+        Vue.component('private-component', {
+            template: '<button @click="counter++">{{ counter }}</button>',
+            data: function() {
+                return {
+                    counter: 0
+                }
+            }
+        })
+        var privateData = new Vue({
+           el: '#private' 
+        });
+        var publicData = new Vue({
+            el: '#publicData'
+        })
         Vue.component('my-component', {
             template: '<button @click="counter++">{{ counter }}</button>',
             data: function () {

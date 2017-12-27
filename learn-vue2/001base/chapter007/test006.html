@@ -16,6 +16,7 @@
     <div id="app">
         <my-component message="来自父组件的数据" age="50"></my-component>
         <my-component2 warning-text="注意这里的写法和驼峰的区别"></my-component2>
+        <hello-component name="Puyi Wu" my-title="你好，欢迎你"></hello-component>
     </div>
 
 
@@ -29,6 +30,10 @@
             props: ['warningText'],
             template: '<div>{{ warningText }}</div>'
         }); 
+        Vue.component('hello-component', {
+            props: ['name', 'myTitle'],
+            template: '<h2>Hello, {{ name }} ! {{ myTitle }}</h2>'
+        })
         var app = new Vue({
            el: '#app' 
         });

@@ -12,6 +12,7 @@
 <body>
     <div id="app">
         <my-component></my-component>
+        <test-component></test-component>
     </div>
 
 
@@ -25,6 +26,14 @@
                 }
             }
         });
+        Vue.component('test-component', {
+            template: '<div>Hello, {{ name }} !</div>',
+            data: function() {
+                return {
+                    name: 'Puyi Wu'
+                }
+            }
+        })
         var app = new Vue({
             el: '#app'
         })

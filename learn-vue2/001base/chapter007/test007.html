@@ -18,7 +18,20 @@
         <my-component :message="parentMessage"></my-component>
         <input type="text" v-model="myTitle">
         <title-component :my-title-small="myTitle"></title-component>
-    </div>
+        <p>
+            <label>请输入你的名字：</label>
+            <input type="text" 
+                   v-model="myName">
+        </p>
+        <p>
+            <label>请开始你的表演：</label>
+            <input type="text"
+                   v-model="myNameTitle">
+        </p>
+        <test-component v-if="myName !== '' && myNameTitle !== ''"
+                        :name="myName" 
+                        :name-title="myNameTitle"></test-component>
+        </div>
 
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -30,12 +43,18 @@
         Vue.component('title-component', {
             props: ['myTitleSmall'],
             template: '<h1>{{ myTitleSmall }} </h1>'
+        });
+        Vue.component('test-component', {
+            props: ['name', 'nameTitle'],
+            template: '<h2>{{ name }}, {{ nameTitle }}！</h2>'
         })
         var app = new Vue({
             el: '#app',
             data: {
                 parentMessage: '',
-                myTitle: ''
+                myTitle: '',
+                myName: '',
+                myNameTitle: ''
             }
         })
     </script>

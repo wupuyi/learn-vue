@@ -12,6 +12,7 @@
 <body>
     <div id="app">
         <my-component></my-component>
+        <test-component></test-component>
     </div>
 
 
@@ -20,12 +21,16 @@
         var Child = {
             template: '<div>局部注册组件的内容</div>'
         }
+        var test = {
+            template: '<h1>我要试试局部组件</h1>'
+        }
         var app = new Vue({
             el: '#app',
             data: {
             },
             components: {
-                'my-component': Child
+                'my-component': Child,
+                'test-component': test
             }
         })
     </script>

@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vue 使用props传递数据</title>
-
+    <style>
+        .myColor {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,13 +19,13 @@
         <!-- 情况一，保存父组件初始值 -->
         <!-- initCount在这里要写为init-count -->
         <my-component :init-count="1"></my-component>
+        <test-component :my-counter="666"></test-component>
         <!-- 情况二，prop作为需要被转变为原始值传入, 使用计算属性-->
         <my-component2 :width="100"></my-component2>
-
-        <test-component :init-message="66666"></test-component>
-        <color-component colors="5F4A8B"></color-component>
+        <color-component :color="898989"></color-component>
+        <color-component color="rgb(94, 74, 138)"></color-component>
     </div>
-      
+
 
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -29,18 +34,29 @@
         Vue.component('my-component', {
             props: ['initCount'],
             template: '<div>{{ count }}</div>',
-            data: function() {
+            data: function () {
                 return {
                     count: this.initCount
                 }
             }
         });
+        // 情况一：父组件传递初始值给子组件
+        //        子组件将其保存起来在自己的作用域下随意使用和修改
         Vue.component('test-component', {
-            props: ['initMessage'],
-            template: '<h1>{{ message }}</h1>',
-            data: function() {
+            props: ['myCounter'],
+            template: ' \
+                <div> \
+                    <h2>{{ count }}</h2> \
+                    <button @click="addHandler"> + 1 </button>\
+                </div>',
+            data: function () {
                 return {
-                    message: this.initMessage + ' 看你妹啊看'
+                    count: this.myCounter
+                }
+            },
+            methods: {
+                addHandler() {
+                    this.count++;
                 }
             }
         })
@@ -49,21 +65,61 @@
             props: ['width'],
             template: '<div :style="style">组件内容</div>',
             computed: {
-                style: function() {
+                style: function () {
                     return {
                         width: this.width + 'px'
                     }
                 }
             }
         })
+        // 随机生成一个0-255的数字
+        function randomColor(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        // 情况二:prop作为需要被转变的原始值传入使用计算属性
         Vue.component('color-component', {
-            props: ['colors'],
-            template: '<h1 :style="myColor">啦啦啦啦啦啦，我是有颜色的</h1>',
+            props: ['color'],
+            template: '<div :style="myColor"\
+                            class="myColor">看我72变</div>',
             computed: {
-                myColor: function() {
+                myColor: function () {
                     return {
-                        color: '#' + this.colors
+                        backgroundColor: '#' + this.color
                     }
+                }
+            }
+        })
+        Vue.component('color-component', {
+            props: ['color', 'className'],
+            template: '\
+                <div>\
+                    <div class="className" \
+                         :style="bgColor">看我72变啦啦啦</div> \
+                    <button @click="changeColor">变一个</button>\
+                </div>',
+            data: function () {
+                return {
+
+                }
+            },
+            computed: {
+                bgColor() {
+                    return {
+                        backgroundColor: this.color
+                    }
+                }
+            },
+            methods: {
+                changeColor() {
+                    var myRed = randomColor(0, 255);
+                    var myGreen = randomColor(0, 255);
+                    var myBlue = randomColor(0, 255);
+                    console.log(this.color);
+                    //会报错，不建议直接修改prop里面的color！！！
+                    this.color = `rgb(${myRed}, ${myGreen}, ${myBlue})`;
+                    console.log(this.color);
                 }
             }
         })

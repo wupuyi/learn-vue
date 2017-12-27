@@ -16,6 +16,13 @@
                 <!-- 特殊属性挂在组件，解决有些情况下收到HTML的限制 -->
             </tbody>
         </table>
+        <table>
+            <tbody>
+                <tr is="test-component"></tr>
+                <!-- <test-component></test-component> 直接这么写渲染不到tbody里面-->
+            </tbody>
+        </table>
+
     </div>
 
 
@@ -24,6 +31,9 @@
         Vue.component('my-component', {
             template: '<div>这里是一个组件</div>'
         });
+        Vue.component('test-component', {
+            template: '<h1>Hello, World!</h1>'
+        })
         var app = new Vue({
             el: '#app'
         })

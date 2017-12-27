@@ -12,6 +12,7 @@
 <body>
     <div id="app">
         <my-component></my-component>
+        <test-component></test-component>
     </div>
 
 
@@ -20,12 +21,15 @@
         Vue.component('my-component', {
             template: '<div>这里是组件的内容</div>'
         })
+        Vue.component('test-component', {
+            template: '<h1>Hello, World!</h1>'
+        });
         
         var app = new Vue({
             el: '#app',
             data: {
             }
-        })
+        });
     </script>
 </body>
 
