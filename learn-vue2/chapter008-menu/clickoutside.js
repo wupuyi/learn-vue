@@ -10,7 +10,7 @@ Vue.directive('clickoutside', {
             }
         }
         el.__vueClickOutSide__ = documentHandler;
-        document.addEventListener('click', doucmentHandler);
+        document.addEventListener('click', documentHandler);
     },
     unbind: function(el, binding) {
         document.removeEventListener('click', el.__vueClickOutSide__);
