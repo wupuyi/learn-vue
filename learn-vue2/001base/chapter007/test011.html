@@ -14,6 +14,8 @@
     <div id="app">
         <p>总数：{{ total }}</p>
         <my-component v-model="total"></my-component>
+        <p>数字是：{{ num }}</p>
+        <test-component v-model="num"></test-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -32,11 +34,35 @@
                 }
             }
         });
+        
+        Vue.component('test-component', {
+            template: '\
+                <div>\
+                    <button @click="addClick">+1</button>\
+                    <button @click="reduceClick">-1</button>\
+                </div>',
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                addClick() {
+                    this.counter++;
+                    this.$emit('input', this.counter);
+                },
+                reduceClick() {
+                    this.counter--;
+                    this.$emit('input', this.counter);
+                }
+            }
+        });
 
         var app = new Vue({
             el: '#app',
             data: {
-                total: 0
+                total: 0,
+                num: 0
             }
         })
     </script>

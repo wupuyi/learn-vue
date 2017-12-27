@@ -118,6 +118,7 @@
                     var myBlue = randomColor(0, 255);
                     console.log(this.color);
                     //会报错，不建议直接修改prop里面的color！！！
+                    //原因为，刷新后所有修改都不会保存。会被prop覆盖
                     this.color = `rgb(${myRed}, ${myGreen}, ${myBlue})`;
                     console.log(this.color);
                 }

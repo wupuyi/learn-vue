@@ -16,6 +16,8 @@
         <!-- v-model 语法糖替换@input -->
         <my-component v-model="total"></my-component>
         <button @click="handleReduce">-1</button>
+        <test-component v-model="myNum"></test-component>
+        <button @click="handleAdd">+1</button>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -30,14 +32,28 @@
             }
         });
 
+        Vue.component('test-component', {
+            props: ['myValue'],
+            template: '<input :value="myValue" @input="updateValue">',
+            methods: {
+                updateValue(event) {
+                    this.$emit('input', event.target.value);
+                }
+            }
+        })
+
         var app = new Vue({
             el: '#app',
             data: {
-                total: 0
+                total: 0,
+                myNum: 0
             },
             methods: {
                 handleReduce: function() {
                     this.total--;
+                },
+                handleAdd() {
+                    this.myNum++;
                 }
             }
         })

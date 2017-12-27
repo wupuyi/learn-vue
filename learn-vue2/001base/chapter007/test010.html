@@ -17,6 +17,11 @@
             @increase="handleGetTotal"
             @reduce="handleGetTotal"></my-component>
 
+        <h1>看我大不大{{ myNum }}</h1>
+        <test-component
+            @myincrease="getMyNumbHandler"
+            @myreduce="getMyNumbHandler"></test-component>
+
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -43,15 +48,46 @@
                 }
             }
         });
-
+        Vue.component('test-component', {
+            template: '\
+                <div>\
+                    <button @click="addHandler">+1</button>\
+                    <button @click="reduceHandler">-1</button>\
+                </div>',
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                // 组件中的事件
+                // 当按钮点击时，触发相应事件，触发父组件的事件
+                addHandler() {
+                    this.counter++;
+                    // 子组件触发事件
+                    console.log(this.counter);
+                    this.$emit('myincrease', this.counter);
+                },
+                reduceHandler() {
+                    this.counter--;
+                    //子组件触发事件
+                    console.log(this.counter);
+                    this.$emit('myreduce', this.counter);
+                }
+            }
+        })
         var app = new Vue({
             el: '#app',
             data: {
-                total: 0
+                total: 0,
+                myNum: 0
             },
             methods: {
                 handleGetTotal: function(total) {
                     this.total = total;
+                },
+                getMyNumbHandler: function(myNum) {
+                    this.myNum = myNum;
                 }
             }
         })

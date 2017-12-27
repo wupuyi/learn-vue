@@ -14,23 +14,33 @@
     <div id="app">
         <p>总数：{{ total }}</p>
         <!-- 语法糖，可以间接通过 <my-component v-model="handleGetTotal"></my-component> 和计算属性实现 -->
-        <my-component v-model="total"></my-component>
+        <my-component @input="updateValue"></my-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
         Vue.component('my-component', {
-            template: '<button @click="handleClick">+1</button>',
-            data: function() {
+            template: '\
+                <div>\
+                    <button @click="addClick">+1</button>\
+                    <button @click="reduceClick">-1</button>\
+                </div>',
+            data: function () {
                 return {
                     counter: 0
                 }
             },
             methods: {
-                handleClick: function() {
+                addClick () {
                     this.counter++;
-                    this.$emit('input', this.counter);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                    //触发父组件的input事件，将this.counter传入
+                    this.$emit('input', this.counter);
+                },
+                reduceClick() {
+                    this.counter--;
+                    this.$emit('input', this.counter);
                 }
+
             }
         });
 
@@ -38,6 +48,11 @@
             el: '#app',
             data: {
                 total: 0
+            },
+            methods: {
+                updateValue(total) {
+                    this.total = total;
+                }
             }
 
         })

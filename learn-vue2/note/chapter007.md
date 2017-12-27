@@ -113,3 +113,155 @@ eg：
 ### 4.4 单项数据流的两种情况。
 
 [点击查看代码](../001base/chapter007/test009.html)
+
+
+## 5 组件通信
+
+### 5.1 自定义事件
+
+子组件用#emit()出发时间，父组件用$on()来监听子组件的事件。
+
+父组件也可以直接在子组件的自定义标签上使用v-on来监听子组件出发的自定义事件。
+
+```html
+<h1>看我大不大{{ myNum }}</h1>
+<test-component
+    @myincrease="getMyNumbHandler"
+    @myreduce="getMyNumbHandler"></test-component>
+```
+
+```javascript
+Vue.component('test-component', {
+    template: '\
+        <div>\
+            <button @click="addHandler">+1</button>\
+            <button @click="reduceHandler">-1</button>\
+        </div>',
+    data: function() {
+        return {
+            counter: 0
+        }
+    },
+    methods: {
+        // 组件中的事件
+        // 当按钮点击时，触发相应事件，触发父组件的事件
+        addHandler() {
+            this.counter++;
+            // 子组件触发事件
+            console.log(this.counter);
+            this.$emit('myincrease', this.counter);
+        },
+        reduceHandler() {
+            this.counter--;
+            //子组件触发事件
+            console.log(this.counter);
+            this.$emit('myreduce', this.counter);
+        }
+    }
+});
+var app = new Vue({
+    el: '#app',
+    data: {
+        myNum: 0
+    },
+    methods: {
+        getMyNumbHandler: function(myNum) {
+            this.myNum = myNum;
+        }
+    }
+})
+```
+
+### 5.3 使用`v-model`
+
+可以看作input事件的语法糖。比较如下：
+
+HTML:
+
+```html
+<p>数字是：{{ num }}</p>
+<test-component v-model="num"></test-component>
+```
+
+```html
+<p>总数：{{ total }}</p>
+<my-component @input="updateValue"></my-component>
+```
+
+
+JavaScript:
+
+```javascript
+Vue.component('test-component', {
+    template: '\
+        <div>\
+            <button @click="addClick">+1</button>\
+            <button @click="reduceClick">-1</button>\
+        </div>',
+    data: function() {
+        return {
+            counter: 0
+        }
+    },
+    methods: {
+        addClick() {
+            this.counter++;
+            this.$emit('input', this.counter);
+        },
+        reduceClick() {
+            this.counter--;
+            this.$emit('input', this.counter);
+        }
+    }
+});
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        num: 0
+    }
+})
+```
+
+```javascript
+Vue.component('my-component', {
+    template: '\
+        <div>\
+            <button @click="addClick">+1</button>\
+            <button @click="reduceClick">-1</button>\
+        </div>',
+    data: function () {
+        return {
+            counter: 0
+        }
+    },
+    methods: {
+        addClick () {
+            this.counter++;
+            //触发父组件的input事件，将this.counter传入
+            this.$emit('input', this.counter);
+        },
+        reduceClick() {
+            this.counter--;
+            this.$emit('input', this.counter);
+        }
+
+    }
+});
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        total: 0
+    },
+    methods: {
+        updateValue(total) {
+            this.total = total;
+        }
+    }
+
+})
+```
+
+### 5.4 `v-model`创建自定义的表单输入组件，进行数据双向绑定
+
