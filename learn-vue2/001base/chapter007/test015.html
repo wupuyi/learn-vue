@@ -15,6 +15,7 @@
 
     <div id="app">
         {{ message }}
+        {{ information }}
         <component-a></component-a>
     </div>
 
@@ -29,6 +30,12 @@
                 }
             }
         });
+
+        Vue.component('component-b', {
+            template: '<button @click="changeMsg">给我改变那个文字</button>'
+            // 20171228 9:53 改到这里
+        })
+        
 
         var app = new Vue({
             el: '#app',

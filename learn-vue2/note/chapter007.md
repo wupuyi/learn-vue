@@ -265,3 +265,50 @@ var app = new Vue({
 
 ### 5.4 `v-model`创建自定义的表单输入组件，进行数据双向绑定
 
+
+
+## 6 非父子组件通信
+
+### 6.1 使用空Vue实例作为中央事件总线（bus）
+
+```html
+<div id="app">
+    {{ message }}
+    <component-a></component-a>
+</div> 
+```
+
+```javascript
+//空Vue实例用作中央事件总线（bus）
+var bus = new Vue();
+
+Vue.component('component-a', {
+    template: '<button @click="handleEvent">传递事件</button>',
+    methods: {
+        handleEvent: function() {
+            // 通过bus把事件on-message发出去
+            bus.$emit('on-message', '来自组件component-a的内容，惊不惊喜，意不意外');
+        }
+    }
+});
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: ''
+    },
+    mounted: function() {
+        var _this = this;
+        //在实例初始化时，监听来自bus实例的on-message事件
+        bus.$on('on-message', function(msg) {
+            _this.message = msg;
+        })
+    }
+})
+```
+
+### 6.2 父链
+
+在子组件中，使用this.$parent可以直接访问该组件的父实例或组件，父组件也可以通过this.$children访问它所有的子组件，而且可以递归向上或向下无线访问，知道根实例或最内容层的组件。
+
+推荐父子组件通信通过`props`和`$emit`进行通信，可以避免父子组件紧耦合
+
