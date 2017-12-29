@@ -16,8 +16,6 @@
     <div id="app">
         <button @click="handleRef">通过ref获取子组件实例</button>
         <component-a ref="comA"></component-a>
-        <p ref="p">内容</p>
-        <child-component ref="child"></child-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -30,14 +28,7 @@
                 }
             }
         });
-        Vue.component('child-component', {
-            template: '<h1>我的我的子组件</h1>',
-            data: function() {
-                return {
-                    message: '我的我的子组件内容'
-                }
-            }
-        })
+
         var app = new Vue({
             el: '#app',
             methods: {
@@ -46,10 +37,7 @@
                     // 通过$refs来访问指定的实例
                     var msg = this.$refs.comA.message;
                     console.log(msg)
-                    var p = this.$refs.p.innerHTML;
-                    var childMsg = this.$refs.child.message;
-                    console.log(p);
-                    console.log(childMsg);
+
                 }
             }
         })

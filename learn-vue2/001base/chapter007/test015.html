@@ -15,8 +15,9 @@
 
     <div id="app">
         {{ message }}
-        {{ information }}
+        <h1>{{ information }}</h1>
         <component-a></component-a>
+        <component-b></component-b>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -32,15 +33,21 @@
         });
 
         Vue.component('component-b', {
-            template: '<button @click="changeMsg">给我改变那个文字</button>'
-            // 20171228 9:53 改到这里
+            template: '<button @click="changeMsg">给我改变那个文字</button>',
+            methods: {
+                changeMsg: function() {
+                    // 访问父链后，可以做任何操作，比如直接修改数据
+                    this.$parent.information = '给你变，给你变，给你变。'
+                }
+            }
         })
         
 
         var app = new Vue({
             el: '#app',
             data: {
-                message: ''
+                message: '',
+                information: ''
             }
         })
     </script>

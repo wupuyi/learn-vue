@@ -312,3 +312,73 @@ var app = new Vue({
 
 推荐父子组件通信通过`props`和`$emit`进行通信，可以避免父子组件紧耦合
 
+```html
+
+<div id="app">
+    <h1>{{ information }}</h1>
+    <component-b></component-b>
+</div>
+
+```
+
+```javascript
+
+Vue.component('component-b', {
+    template: '<button @click="changeMsg">给我改变那个文字</button>',
+    methods: {
+        changeMsg: function() {
+            // 访问父链后，可以做任何操作，比如直接修改数据
+            this.$parent.information = '给你变，给你变，给你变。'
+        }
+    }
+})
+
+var app = new Vue({
+    sel: '#app',
+    data: {
+        message: '',
+        information: ''
+    }
+})
+
+```
+
+### 6.3 子组件索引
+
+```html
+
+<div id="app">
+    <button @click="handleRef">通过ref获取子组件实例</button>
+    <component-a ref="comA"></component-a>
+</div>
+
+```
+
+```javascript
+
+Vue.component('component-a', {
+    template: '<div>子组件</div>',
+    data: function() {
+        return {
+            message: '子组件内容'
+        }
+    }
+});
+
+var app = new Vue({
+    el: '#app',
+    methods: {
+        handleRef: function() {
+            // 父组件内通过this.$refs访问指定名称的子组件。
+            // 通过$refs来访问指定的实例
+            var msg = this.$refs.comA.message;
+            console.log(msg)
+
+        }
+    }
+})
+
+```
+
+## 7 使用slot分发内容
+
