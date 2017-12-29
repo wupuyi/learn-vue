@@ -382,3 +382,52 @@ var app = new Vue({
 
 ## 7 使用slot分发内容
 
+slot  中文意为插槽
+
+### 7.1 单个slot
+
+```html
+
+<my-component>
+    <h1>我是老虎。</h1>
+</my-component>
+<!-- 结果为，我是老虎 -->
+
+<my-component></my-component>
+<!-- 结果为山中无老虎，猴子称霸王 -->
+
+```
+
+```javascript
+
+Vue.component('my-component', {
+    template: '\
+        <div>\
+            <slot>\
+                <h1>父组件没有插入内容，我就会出现</h1>\
+                <h2>{{ saying }}</h2>\
+            </slot>\
+        </div>',
+    data: function() {
+        return {
+            saying: '山中无老虎，猴子称霸王。'
+        }
+    }
+});
+
+var app = new Vue({
+    el: '#app',
+})
+
+```
+
+
+### 7.2 作用域
+
+slot分发的内容，作用域实在父组件上的！！！
+
+
+### 7.3 具名slot
+
+
+

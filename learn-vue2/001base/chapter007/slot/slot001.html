@@ -18,6 +18,13 @@
             <p>分发的内容</p>
             <p>更多分发的内容</p>
         </child-component>
+        <my-component>
+            <h1>我是老虎。</h1>
+        </my-component>
+        <!-- 结果为，我是老虎 -->
+
+        <my-component></my-component>
+        <!-- 结果为山中无老虎，猴子称霸王 -->
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -29,6 +36,20 @@
                     <p>如果父组件没有插入内容，我将作为默认出现</p>\
                 </slot>\
             </div>'
+        });
+        Vue.component('my-component', {
+            template: '\
+                <div>\
+                    <slot>\
+                        <h1>父组件没有插入内容，我就会出现</h1>\
+                        <h2>{{ saying }}</h2>\
+                    </slot>\
+                </div>',
+            data: function() {
+                return {
+                    saying: '山中无老虎，猴子称霸王。'
+                }
+            }
         });
 
         var app = new Vue({
