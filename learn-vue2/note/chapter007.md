@@ -429,5 +429,82 @@ slot分发的内容，作用域实在父组件上的！！！
 
 ### 7.3 具名slot
 
+```html
 
+<div id="app">
+    <my-component>
+        <h1 slot="header">Hello, World!</h1>
+        <p>哈哈哈哈哈喽</p>
+        <h2 slot="footer">这是我的脚！</h2>
+        <p>这个匿名的肯定在匿名slot里面！</p>
+    </my-component>
+</div>
+
+```
+
+
+```javascript
+
+Vue.component('my-component', {
+    template: '\
+        <div class="container">\
+            <div class="header">\
+                <slot name="header"></slot>\
+            </div>\
+            <div class="main">\
+                <slot></slot>\
+            </div>\
+            <div calss="footer">\
+                <slot name="footer"></slot>\
+            </div>\
+        </div>'
+})
+var app = new Vue({
+    el: '#app'
+})
+
+```
+
+## 7.4 作用于插槽
+
+
+### 7.4.1 基本用法
+
+```html
+
+    <div id="app">
+        <child-component>
+            <template scope="props">
+                <p>来组父组件的内容</p>
+                <p>{{ props.msg }}</p>
+            </template>
+        </child-component>
+        <my-component>
+            <!-- 从此处props只是一个临时变量，类似v-for="item in items"里面的item -->
+            <template scope="props">
+                <p>我是父组件，父组件，父组件</p>
+                <p>{{ props.msg }}</p>
+            </template>
+        </my-component>
+    </div>
+
+```
+
+```javascript
+
+Vue.component('my-component', {
+    template: '\
+        <div class="main">\
+            <slot msg="我是子组件的内容噢噢噢噢"></slot>\
+        </div>'
+})
+
+var app = new Vue({
+    el: '#app'
+})
+
+```
+
+
+### 7.4.2 代表用例——列表组件
 

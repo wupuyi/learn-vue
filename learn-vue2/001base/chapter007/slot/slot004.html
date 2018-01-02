@@ -18,6 +18,12 @@
                 <li>{{ props.bookName }}</li>
             </template>
         </my-list>
+        <my-test-list>
+            <!-- 作用域插槽也可以是具名的slot -->
+            <template slot="book" scope="props">
+                <li>{{ props.bookName }}</li>
+            </template>
+        </my-test-list>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -40,6 +46,25 @@
                 </slot>\
             </ul>'
         });
+
+        Vue.component('my-test-list', {
+            props: {
+                books: {
+                    type: Array,
+                    default: function() {
+                        return [];
+                    }
+                }
+            },
+            template: '\
+                <ul>\
+                    <slot name="book"\
+                          v-for="book in books"\
+                          :book-name="book.name">\
+                          <!-- 这里也可以写默认slot -->\
+                    </slot>\
+                <ul>'
+        })
 
         var app = new Vue({
             el: '#app',

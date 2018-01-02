@@ -17,6 +17,13 @@
                 <p>{{ props.msg }}</p>
             </template>
         </child-component>
+        <my-component>
+            <!-- 从此处props只是一个临时变量，类似v-for="item in items"里面的item -->
+            <template scope="props">
+                <p>我是父组件，父组件，父组件</p>
+                <p>{{ props.msg }}</p>
+            </template>
+        </my-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -28,9 +35,16 @@
             </div>'
         });
 
+        Vue.component('my-component', {
+            template: '\
+                <div class="main">\
+                    <slot msg="我是子组件的内容噢噢噢噢"></slot>\
+                </div>'
+        });
+
         var app = new Vue({
             el: '#app'
-        })
+        });
     </script>
 </body>
 

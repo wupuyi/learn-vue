@@ -12,32 +12,52 @@
 <body>
     <!-- 给<slot>元素指定一个name，可以分发多个内容，具名slot可以和单个slot共存 -->
     <div id="app">
-        <child-component>
+        <!-- <child-component>
             <h2 slot="header">标题</h2>
             <p>正文内容</p>
             <p>更多的正文内容</p>
             <div slot="footer">底部信息</div>
             <p>更多的正文内容2222222</p>
-        </child-component>
+        </child-component> -->
+        <my-component>
+            <h1 slot="header">Hello, World!</h1>
+            <p>哈哈哈哈哈喽</p>
+            <h2 slot="footer">这是我的脚！</h2>
+            <p>这个匿名的肯定在匿名slot里面！</p>
+        </my-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
-        Vue.component('child-component', {
-            // 指定默认匿名slot，如未指定，则多余的内容片段将被抛弃。
+        // Vue.component('child-component', {
+        //     // 指定默认匿名slot，如未指定，则多余的内容片段将被抛弃。
+        //     template: '\
+        //     <div class="container">\
+        //         <div class="header">\
+        //             <slot name="header"></slot>\
+        //         </div>\
+        //         <div class="main">\
+        //             <slot></slot>\
+        //         </div>\
+        //         <div class="footer">\
+        //             <slot name="footer"></slot>\
+        //         </div>\
+        //     </div>'
+        // });
+        Vue.component('my-component', {
             template: '\
-            <div class="container">\
-                <div class="header">\
-                    <slot name="header"></slot>\
-                </div>\
-                <div class="main">\
-                    <slot></slot>\
-                </div>\
-                <div class="footer">\
-                    <slot name="footer"></slot>\
-                </div>\
-            </div>'
-        });
+                <div class="container">\
+                    <div class="header">\
+                        <slot name="header"></slot>\
+                    </div>\
+                    <div class="main">\
+                        <slot></slot>\
+                    </div>\
+                    <div calss="footer">\
+                        <slot name="footer"></slot>\
+                    </div>\
+                </div>'
+        })
         var app = new Vue({
             el: '#app'
         })
