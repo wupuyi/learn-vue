@@ -465,10 +465,10 @@ var app = new Vue({
 
 ```
 
-## 7.4 作用于插槽
+### 7.4 作用域插槽
 
 
-### 7.4.1 基本用法
+**7.4.1 基本用法**
 
 ```html
 
@@ -506,5 +506,314 @@ var app = new Vue({
 ```
 
 
-### 7.4.2 代表用例——列表组件
+**7.4.2 代表用例——列表组件**
+
+```html
+
+<div id="app">
+    <my-test-list :books="books">
+        <!-- 作用域插槽也可以是具名的slot -->
+        <template slot="book" scope="props">
+            <li>{{ props.bookName }}</li>
+        </template>
+    </my-test-list>
+</div>
+
+```
+
+```javascript
+
+Vue.component('my-test-list', {
+    props: {
+        books: {
+            type: Array,
+            default: function() {
+                return [];
+            }
+        }
+    },
+    template: '\
+        <ul>\
+            <slot name="book"\
+                    v-for="book in books"\
+                    :book-name="book.name">\
+                    <!-- 这里也可以写默认slot内容 -->\
+            </slot>\
+        </ul>'
+})
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        books: [
+            { name: '《Vue.js实战》' },
+            { name: '《JavaScript语言精粹》' },
+            { name: '《JavaScript高级程序设计》' }
+        ]
+    }
+});
+
+```
+
+### 7.5 访问slot
+
+vue.js 2.x提供用来访问被slot分发的内容的方法$slots
+
+$slots在实际业务中几乎用不到，在用render函数创建组件时会比较有用，但主要还是用于独立组件开发。
+
+
+## 8 组件高级用法
+
+### 8.1 递归组件
+
+```html
+
+<!-- 递归组件 -->
+<!-- 给组件设置name选项，就可以在模板内递归调用 -->
+<!-- 1、级联选择器   2、树形组件 -->
+<div id="app">
+    <!-- <child-component :count="1"></child-component> -->
+    <my-component :count="1"></my-component>
+</div>
+
+```
+
+```javascript
+
+Vue.component('my-component', {
+    name: 'my-component',
+    props: {
+        count: {
+            type: Number,
+            default: 1
+        }
+    },
+    template: '\
+        <div class="child">\
+            <my-component \
+                :count="count + 1"\
+                v-if="count < 5">\
+            </my-component>\
+        </div>'
+});
+
+var app = new Vue({
+    el: '#app'
+})
+
+```
+
+效果为，渲染出5个`class="child"`的`div`元素。
+
+
+### 8.2 内联模板
+
+给组件标签使用`inline-template`特性，组建就会把它的内容当作模板，而不是把内容分发。
+
+eg：
+
+```html
+
+<child-component inline-template>
+    <div>
+        <h2>在父组件中定义子组件的模板</h2>
+        <p>{{ message }}</p>
+        <p>{{ msg }}</p>
+    </div>
+</child-component>
+
+```
+
+```javascript
+
+Vue.component('child-component', {
+    data: function() {
+        return {
+            msg: '在子组件声明的数据'
+        }
+    }
+});
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: '在父组件声明的数据',
+        // parMsg: '我是父组件的数据，你来咬我啊'
+    }
+})
+
+```
+如果不是非常特殊的场景，建议不要轻易使用内联模板。（参考《vue.js实战》 P93）
+
+### 8.3 动态组件
+
+`<component>`元素用来动态的挂在不同的组件，使用`is`特性来选择要挂在的组件。
+
+eg：
+
+```html
+<div id="app">
+    <component :is="currentView"></component>
+    <button @click="handleChangeView('A')">切换到A</button>
+    <button @click="handleChangeView('B')">切换到B</button>
+    <button @click="handleChangeView('C')">切换到C</button>
+    <component :is="hello"></component>
+</div>
+```
+
+```javascript
+var world = {
+    template: '<p>Hello, World!</p>'
+};
+var app = new Vue({
+    el: '#app',
+    components: {
+        comA: {
+            template: '<div>组件A</div>'
+        },
+        comB: {
+            template: '<div>组件B</div>'
+        },
+        comC: {
+            template: '<div>组件C</div>'
+        }
+    },
+    data: {
+        currentView: 'comA',
+        hello: world
+    },
+    methods: {
+        handleChangeView: function(component){
+            this.currentView = 'com' + component;
+        }
+    }
+});
+```
+
+### 8.4 异步组件
+
+将组件定义为一个工厂函数，动态地解析组件。Vue.js只在组建需要渲染时触发工厂函数，并且把结果缓存起来，用于后面的再次渲染。
+
+```html
+
+<div id="app">
+    <my-component></my-component>
+</div>
+
+```
+
+```javascript
+
+Vue.component('my-component', function(resolve, reject) {
+    window.setTimeout(function() {
+        resolve({
+            template: '<div>我是异步渲染的元素，啦啦啦，你咬我</div>'
+        });
+    }, 2000);
+});
+
+var app = new Vue({
+    el: '#app'
+});
+
+```
+
+
+## 9 其他相关
+
+### 9.1 $nextTick
+
+涉及Vue概念：*异步更新队列* 详见 《Vue.js实战》 P95
+
+$nextTick就是用来知道什么时候DOM更新完成的
+
+eg：
+
+```html
+<div id="app">
+    <div id="div" v-if="showDiv">这是一段文本</div>
+    <button @click="getText">获取div内容</button>
+</div>
+```
+
+```javascript
+var app = new Vue({
+    el: '#app',
+    data: {
+        showDiv: false
+    },
+    methods: {
+        getText: function() {
+            this.showDiv = true;
+            this.$nextTick(function() {
+                var text = document.getElementById('div').innerHTML;
+                console.log(text);
+            });
+        }
+    }
+})
+```
+
+### 9.2 `X-Template`
+
+另外一种定义模板的方式
+
+`script`标签里面使用text/x-template类型，并指定一个id，将这个id给template。
+
+在没有打包工具是，使用改方式写html更加快捷。
+
+eg：
+
+```html
+
+<div id="app">
+    <my-component></my-component>
+    <script type="text/x-template" id="my-component">
+        <div>
+            这是组件的内容
+        </div>
+    </script>
+</div>
+
+```
+
+```javascript
+
+Vue.component('my-component', {
+    template: '#my-component'
+});
+
+var app = new Vue({
+    el: '#app'
+});
+
+```
+
+### 9.3 手动挂载实例
+
+动态创建Vue实例，Vue提供了Vue.extend和$mount两个方法来手动挂载一个实例。
+
+Vue.extend是基础Vue构造器，创建一个“子类”, 参数是一个包含组件选项的对象。
+
+```html
+
+<div id="mount-div">
+
+</div>
+
+```
+
+```javascript
+var MyComponent = Vue.extend({
+    template: '<div>Hello: {{ name }} </div>',
+    data: function() {
+        return {
+            name: 'Aresn'
+        }
+    }
+});
+
+new MyComponent().$mount('#mount-div');
+```
+
 

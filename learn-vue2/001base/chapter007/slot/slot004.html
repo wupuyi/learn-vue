@@ -12,13 +12,13 @@
 <body>
     <!-- 作用域插槽代表性用例——列表组件。 -->
     <div id="app">
-        <my-list :books="books">
-            <!-- 作用域插槽也可以是具名的Slot -->
+        <!-- <my-list :books="books">
+
             <template slot="book" scope="props">
                 <li>{{ props.bookName }}</li>
             </template>
-        </my-list>
-        <my-test-list>
+        </my-list> -->
+        <my-test-list :books="books">
             <!-- 作用域插槽也可以是具名的slot -->
             <template slot="book" scope="props">
                 <li>{{ props.bookName }}</li>
@@ -28,24 +28,24 @@
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
-        Vue.component('my-list', {
-            props: {
-                books: {
-                    type: Array,
-                    default: function() {
-                        return [];
-                    }
-                }
-            },
-            template: '\
-            <ul>\
-                <slot name="book"\
-                      v-for="book in books"\
-                      :book-name="book.name">\
-                      <!--这里也可以写默认slot内容-->\
-                </slot>\
-            </ul>'
-        });
+        // Vue.component('my-list', {
+        //     props: {
+        //         books: {
+        //             type: Array,
+        //             default: function() {
+        //                 return [];
+        //             }
+        //         }
+        //     },
+        //     template: '\
+        //     <ul>\
+        //         <slot name="book"\
+        //               v-for="book in books"\
+        //               :book-name="book.name">\
+        //               <!--这里也可以写默认slot内容-->\
+        //         </slot>\
+        //     </ul>'
+        // });
 
         Vue.component('my-test-list', {
             props: {
@@ -61,9 +61,9 @@
                     <slot name="book"\
                           v-for="book in books"\
                           :book-name="book.name">\
-                          <!-- 这里也可以写默认slot -->\
+                          <!-- 这里也可以写默认slot内容 -->\
                     </slot>\
-                <ul>'
+                </ul>'
         })
 
         var app = new Vue({

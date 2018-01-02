@@ -20,6 +20,13 @@
                 <p>{{ msg }}</p>
             </div>
         </child-component>
+        <!-- <my-component inline-template>
+            <div>
+                <h1>在负组件中定义子组件的模板</h1>
+                <h2>{{ message }}</h2>
+                <h2>{{ msg }}</h2>
+            </div>
+        </my-component> -->
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -31,11 +38,20 @@
                 }
             }
         });
+
+        // Vue.component('my-component', {
+        //     data: function() {
+        //         return {
+        //             msg: '我是子组件的数据，你来咬我啊'
+        //         }
+        //     }
+        // });
         
         var app = new Vue({
             el: '#app',
             data: {
-                message: '在父组件声明的数据'
+                message: '在父组件声明的数据',
+                // parMsg: '我是父组件的数据，你来咬我啊'
             }
         })
     </script>

@@ -14,13 +14,30 @@
     <!-- 给组件设置name选项，就可以在模板内递归调用 -->
     <!-- 1、级联选择器   2、树形组件 -->
     <div id="app">
-        <child-component :count="1"></child-component>
+        <!-- <child-component :count="1"></child-component> -->
+        <my-component :count="1"></my-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
-        Vue.component('child-component', {
-            name: 'child-component',
+        // Vue.component('child-component', {
+        //     name: 'child-component',
+        //     props: {
+        //         count: {
+        //             type: Number,
+        //             default: 1
+        //         }
+        //     },
+        //     template: '\
+        //     <div class="child">\
+        //         <child-component\
+        //             :count="count + 1"\
+        //             v-if="count < 3"></child-component>\
+        //     </div>'
+        // });
+
+        Vue.component('my-component', {
+            name: 'my-component',
             props: {
                 count: {
                     type: Number,
@@ -28,11 +45,12 @@
                 }
             },
             template: '\
-            <div class="child">\
-                <child-component\
-                    :count="count + 1"\
-                    v-if="count < 3"></child-component>\
-            </div>'
+                <div class="child">\
+                    <my-component \
+                        :count="count + 1"\
+                        v-if="count < 5">\
+                    </my-component>\
+                </div>'
         });
 
         var app = new Vue({

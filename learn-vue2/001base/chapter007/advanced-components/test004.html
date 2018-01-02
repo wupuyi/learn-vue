@@ -14,6 +14,7 @@
     <!-- 将组件定义为一个工厂函数，动态的解析组件 -->
     <div id="app">
         <child-component></child-component>
+        <my-component></my-component>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -22,6 +23,13 @@
             window.setTimeout(function() {
                 resolve({
                     template: '<div>我是异步渲染的</div>'
+                });
+            }, 2000);
+        });
+        Vue.component('my-component', function(resolve, reject) {
+            window.setTimeout(function() {
+                resolve({
+                    template: '<div>我是异步渲染的元素，啦啦啦，你咬我</div>'
                 });
             }, 2000);
         });
