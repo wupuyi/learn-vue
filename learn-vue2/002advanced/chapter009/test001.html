@@ -5,19 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>进阶篇 第九章</title>
+    <title>进阶篇 第九章 Render函数</title>
 
 </head>
 
 <body>
-
+    <!-- Vue.js用于实现Virtual Dom的Render函数 -->
     <div id="app">
-
+        
     </div>
-
+    <div id="main">
+        <p>文本内容</p>
+        <p>文本内容</p>
+    </div>
+    <script type="text/x-template" id="anchor">
+        <div>
+            <h1 v-if="level === 1">
+                <a :href="'#' + title">
+                    <slot></slot>
+                </a>
+            </h1>
+            <h2 v-if="level === 2">
+                <a :href="'#' + title">
+                    <slot></slot>
+                </a>
+            </h2>
+            <h3 v-if="level === 3">
+                <a :href="'#' + title">
+                    <slot></slot>
+                </a>
+            </h3>
+            <h4 v-if="level === 4">
+                <a :href="'#' + title">
+                    <slot></slot>
+                </a>
+            </h4>
+            <h5 v-if="level === 5">
+                <a :href="'#' + title">
+                    <slot></slot>
+                </a>
+            </h5>
+            <h6 v-if="level === 6">
+                <a :href="'#' + title">
+                    <slot></slot>
+                </a>
+            </h6>
+        </div>
+    </script>
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
+        //虚拟DOM节点
+        var vNode = {
+            tag: 'div',
+            attributes: {
+                id: 'main'
+            },
+            children: [
 
+            ]
+        }
+
+        
     </script>
 </body>
 
