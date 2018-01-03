@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>重复渲染多个组件或元素</title>
+
+</head>
+
+<body>
+    <!-- 含有组件的slot, 复用方法 -->
+
+    <!-- 复用方法: 将slot的每个子节点都克隆一份 -->
+
+    <!-- 偏黑科技，一般业务中几乎遇不到这种需求，主要是运用在独立组件 -->
+
+    <div id="app">
+        <ele>
+            <div>
+                <Child></Child>
+            </div>
+        </ele>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        // 全局注册组件
+        Vue.component('Child', {
+            render: function(createElement) {
+                return createElement('p', 'text');
+            }
+        });
+        Vue.component('ele', {
+            render: function(createElement) {
+                // 克隆slot节点的方法
+                function cloneVNode(vnode) {
+                    // 递归遍历所有子节点，并克隆
+                    const cloneChildren = vnode.children && vnode.children.map(function(vnode) {
+                        return cloneVNode(vndoe);
+                    });
+                    const cloned = createElement(
+                        vnode.tag,
+                        vnode.data,
+                        clonedChildren
+                    );
+                    cloned.text = vnode.text;
+                    cloned.isComment = vnode.isComment;
+                    cloned.componentOptions = vnode.componentOptions;
+                    cloned.elm = vnode.elm;
+                    cloned.context = vnode.context;
+                    cloned.ns = vnode.ns;
+                    cloned.isStatic = vnode.isStatic;
+                    cloned.key = vnode.key;
+
+                    return cloned;
+                }
+                const vNodes = this.$slots.default;
+                const clonedVNode = vNodes.map(function(vnode) {
+                    return cloneVNode(vnode);
+                });
+
+                return createElement('div', [
+                    vNodes,
+                    clonedVNodes
+                ]);
+            }
+        });
+
+        var app = new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>

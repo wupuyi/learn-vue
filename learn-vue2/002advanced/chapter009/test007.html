@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用JavaScript代替模板功能</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <ele :show="show"></ele>
+        <button @click="show = !show">切换 show</button>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        // 代替v-if和v-else
+        Vue.component('ele', {
+            render: function(createElement){
+                if(this.show) {
+                    return createElement('p', 'show的值为true');
+                } else {
+                    return createElement('p', 'show的值为false');
+                }
+            },
+            props: {
+                show: {
+                    type: Boolean,
+                    default: false
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                show: false
+            }
+        })
+    </script>
+</body>
+
+</html>
