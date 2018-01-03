@@ -42,5 +42,15 @@ Vue.component('vTable', {
         // v-table 初始化时调用
         this.makeColumns();
         this.makeData();
+    },
+    render: function(h) {
+        var ths = [];
+        var trs = [];
+        return h('table', [
+            h('thead',[
+                h('tr', ths)
+            ]),
+            h('tbody', trs)
+        ])
     }
 });
