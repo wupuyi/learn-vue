@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Render函数——createElement用法</title>
+
+</head>
+
+<body>
+    <!-- 错误示例 -->
+    <div id="eg1">
+        <!-- 错误示例1 -->
+        <!-- <ele></ele> -->
+        <!-- 错误示例2 -->
+    </div>
+    <div id="eg2">
+        <ele>
+            <div>
+                <Child></Child>
+            </div>
+        </ele>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        // 错误示例1
+        /*
+        // 局部声明组件
+
+        var Child = {
+            render: function(createElement) {
+                return createElement('p', 'text');
+            }
+        };
+
+        Vue.component('ele', {
+            render: function(createElement) {
+                //创建一个子节点，使用组件Child
+                var ChildNode = createElement(Child);
+                return createElement('div', [
+                    ChildNode,
+                    ChildNode
+                ]);
+            }
+        })*/
+
+
+        // 错误示例2
+        Vue.component('Child', {
+            render: function(createElement) {
+                return createElement('p', 'text');
+            }
+        });
+
+        Vue.component('ele', {
+            render: function(createElement) {
+                return createElement('div', [
+                    this.$slots.default,
+                    this.$slots.default
+                ]);
+            }
+        });
+
+        var eg1 = new Vue({
+            el: '#eg1'
+        })
+
+        var eg2 = new Vue({
+            el: '#eg2'
+        })
+    </script>
+</body>
+
+</html>

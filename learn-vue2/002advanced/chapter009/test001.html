@@ -11,59 +11,82 @@
 
 <body>
     <!-- Vue.js用于实现Virtual Dom的Render函数 -->
+
+    <!-- 简单示例，稍后改写 -->
     <div id="app">
-        
+        <anchor :level="1" title="特性哈哈哈">特性哈哈哈</anchor>
+
+        <anchor :level="2" title="你是谁啊">你是谁啊</anchor>
+
+        <script type="text/x-template" id="anchor">
+            <div>
+                <h1 v-if="level === 1">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h1>
+                <h2 v-if="level === 2">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h2>
+                <h3 v-if="level === 3">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h3>
+                <h4 v-if="level === 4">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h4>
+                <h5 v-if="level === 5">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h5>
+                <h6 v-if="level === 6">
+                    <a :href="'#' + title">
+                        <slot></slot>
+                    </a>
+                </h6>
+            </div>
+        </script>
     </div>
-    <div id="main">
+    <!-- <div id="main">
         <p>文本内容</p>
         <p>文本内容</p>
-    </div>
-    <script type="text/x-template" id="anchor">
-        <div>
-            <h1 v-if="level === 1">
-                <a :href="'#' + title">
-                    <slot></slot>
-                </a>
-            </h1>
-            <h2 v-if="level === 2">
-                <a :href="'#' + title">
-                    <slot></slot>
-                </a>
-            </h2>
-            <h3 v-if="level === 3">
-                <a :href="'#' + title">
-                    <slot></slot>
-                </a>
-            </h3>
-            <h4 v-if="level === 4">
-                <a :href="'#' + title">
-                    <slot></slot>
-                </a>
-            </h4>
-            <h5 v-if="level === 5">
-                <a :href="'#' + title">
-                    <slot></slot>
-                </a>
-            </h5>
-            <h6 v-if="level === 6">
-                <a :href="'#' + title">
-                    <slot></slot>
-                </a>
-            </h6>
-        </div>
-    </script>
+    </div> -->
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <script>
         //虚拟DOM节点
-        var vNode = {
-            tag: 'div',
-            attributes: {
-                id: 'main'
-            },
-            children: [
+        // var vNode = {
+        //     tag: 'div',
+        //     attributes: {
+        //         id: 'main'
+        //     },
+        //     children: [
 
-            ]
-        }
+        //     ]
+        // }
+
+        Vue.component('anchor', {
+            template: '#anchor',
+            props: {
+                level: {
+                    type: Number,
+                    required: true,
+                },
+                title: {
+                    type: String,
+                    default: ''
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: '#app'
+        })
 
         
     </script>

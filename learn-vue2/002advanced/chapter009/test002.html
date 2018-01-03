@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>进阶篇 第九章 Render函数</title>
+
+</head>
+
+<body>
+    <!-- Vue.js用于实现Virtual Dom的Render函数 -->
+
+    <!-- 简单示例，稍后改写 -->
+    <div id="app">
+        <anchor :level="2" title="特性哈哈哈">特性哈哈哈</anchor>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script>
+        Vue.component('anchor', {
+            props: {
+                level: {
+                    type: Number,
+                    required: true
+                },
+                title: {
+                    type: String,
+                    default: ''
+                }
+            },
+            render: function(createElement) {
+                return createElement(
+                    'h' + this.level,
+                    {
+                        domProps: {
+                            title: '我是h标签我怕谁'
+                        }
+                    },
+                    //子节点(VNodes),可选
+                    [
+                        createElement(
+                            'a',
+                            {
+                                domProps: {
+                                    href: '#' + this.title
+                                }
+                            },
+                            // 访问slot, this.$slots.default包括了所有没有被包含在具名slot中的节点
+                            this.$slots.default
+                        ),
+                        //h1标签
+                        createElement(
+                            'h1', 'hello World'
+                        ),
+                        createElement('MyComponent', {
+                            props: {
+                                someProp: 'foo'
+                            }
+                        }),
+                        //文本节点
+                        'bar'
+                    ]
+                )
+            }
+        });
+
+        var app = new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>
