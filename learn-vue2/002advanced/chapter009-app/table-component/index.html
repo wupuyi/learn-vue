@@ -10,8 +10,9 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         <v-table :data="data" :columns="columns"></v-table>
+        <button @click="handleAddData">添加数据</button>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
