@@ -1,2 +1,2 @@
-import './style.css';
-document.getElementById('app').innerHTML = 'Hello Webpack';
+// import './style.css';
+// document.getElementById('app').innerHTML = 'Hello Webpack';
