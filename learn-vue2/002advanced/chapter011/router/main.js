@@ -16,17 +16,27 @@ import User from './views/user.vue';
 
 Vue.use(VueRouter);
 
+// 配置路由表
 const Routers = [
     {
         path: '/index',
+        meta: {
+            title: '首页'
+        },
         component: Index
     },
     {
         path: '/about',
+        meta: {
+            title: '关于'
+        },
         component: About
     },
     {
         path: '/user/:id',
+        meta: {
+            title: '个人主页'
+        },
         component: User
     },
     {
@@ -42,6 +52,14 @@ const RouterConfig = {
 }
 
 const router = new VueRouter(RouterConfig);
+
+// vue-touter 导航钩子
+// beforeEach 路由即将改变前 和 afterEach 路由改变后
+router.beforeEach((to, from, next) => {
+    window.document.title = to.meta.title;
+    next();
+})
+
 
 // 创建Vue根实例
 new Vue({

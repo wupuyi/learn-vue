@@ -421,9 +421,15 @@ exports.default = {};
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-exports.default = {};
+exports.default = {
+    methods: {
+        handleRouter: function handleRouter() {
+            this.$router.replace('/user/123');
+        }
+    }
+};
 
 /***/ }),
 /* 6 */
@@ -11468,7 +11474,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("首页")])
+  return _c(
+    "div",
+    [
+      _c("h1", [_vm._v("首页")]),
+      _vm._v(" "),
+      _c("router-link", { attrs: { to: "/about" } }, [_vm._v("跳转到about")])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -11544,7 +11558,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("介绍页")])
+  return _c("div", [
+    _c("h1", [_vm._v("介绍页")]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.handleRouter } }, [_vm._v("跳转到user")])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
