@@ -1,12 +1,36 @@
 <template>
-    <div>Hello {{ name }}</div>
+    <!-- <div>Hello {{ name }}</div> -->
+    <div>
+        <v-title title="Vue组件化"></v-title>
+        <v-button @click="handleClick">点击按钮</v-button>
+        <p>
+            <img src="./img/test.jpg" alt="测试">
+        </p>
+    </div>
 </template>
 
 <script>
+
+    // 导入组件
+    import vTitle from './title.vue'
+    import vButton from './button.vue'
+
     export default{
-        data () {
-            return {
-                name: 'Vue.js'
+        components: {
+            //注意定义和标签写法的区别
+            //驼峰和加"-"
+            vTitle,
+            vButton
+            // es6写法
+            // 等同于
+            // {
+            //     vTitle: vTitle,
+            //     vButton: vButton
+            // }
+        },
+        methods: {
+            handleClick(e) {
+                console.log(e);
             }
         }
     }
@@ -18,3 +42,4 @@
         font-size: 24px;
     }
 </style>
+ 
