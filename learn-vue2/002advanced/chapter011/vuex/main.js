@@ -84,6 +84,46 @@ router.afterEach((to, from, next) => {
 
 const store = new Vuex.Store({
     // Vuex的配置
+    // state保存数据的字段
+    state: {
+        // 在任何组件内，都可以直接通过$store.state.count读取
+        count: 0,
+        list: [1, 5, 8, 10, 30, 50]
+    },
+    getters: {
+        filteredList: state => {
+            return state.list.filter(item => item < 10);
+        },
+        listCount: (state, getters) => {
+            return getters.filteredList.length;
+        }
+    },
+    mutations: {
+        // mutations还可以接受第二个参数
+        // 如每次加2
+        increment(state, n=2) {
+            state.count += n;
+        },
+        // increment(state, params) {
+        //     state.count += params.count;
+        // },
+        decrease(state) {
+            state.count --;
+        }
+    },
+    actions: {
+        // increment(context) {
+        //     context.commit('increment');
+        // }
+        asyncIncrement(context) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                   context.commit('increment');
+                   resolve(); 
+                }, 1000);
+            })
+        }
+    }
 });
 
 
