@@ -56,8 +56,16 @@ const router = new VueRouter(RouterConfig);
 // vue-touter 导航钩子
 // beforeEach 路由即将改变前 和 afterEach 路由改变后
 router.beforeEach((to, from, next) => {
+    // 导航钩子参数
+    // 1、to即将要进入的目标的路由对象
+    // 2、from当前导航即将要离开的路由对象
+    // 3、next调用该方法后，才能进入下一个钩子
     window.document.title = to.meta.title;
     next();
+})
+
+router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0);
 })
 
 

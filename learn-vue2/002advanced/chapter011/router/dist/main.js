@@ -426,7 +426,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     methods: {
         handleRouter: function handleRouter() {
-            this.$router.replace('/user/123');
+            this.$router.push('/user/123');
         }
     }
 };
@@ -484,12 +484,21 @@ _vue2.default.use(_vueRouter2.default);
 
 var Routers = [{
     path: '/index',
+    meta: {
+        title: '首页'
+    },
     component: _index2.default
 }, {
     path: '/about',
+    meta: {
+        title: '关于'
+    },
     component: _about2.default
 }, {
     path: '/user/:id',
+    meta: {
+        title: '个人主页'
+    },
     component: _user2.default
 }, {
     path: '*',
@@ -502,6 +511,15 @@ var RouterConfig = {
 };
 
 var router = new _vueRouter2.default(RouterConfig);
+
+router.beforeEach(function (to, from, next) {
+    window.document.title = to.meta.title;
+    next();
+});
+
+router.afterEach(function (to, from, next) {
+    window.scrollTo(0, 0);
+});
 
 new _vue2.default({
     el: '#app',
