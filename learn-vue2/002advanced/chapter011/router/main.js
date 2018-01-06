@@ -13,6 +13,8 @@ import Index from './views/index.vue';
 import About from './views/about.vue';
 //导入 user
 import User from './views/user.vue';
+// 导入message
+import Message from './views/message.vue';
 
 Vue.use(VueRouter);
 
@@ -38,6 +40,13 @@ const Routers = [
             title: '个人主页'
         },
         component: User
+    },
+    {
+        path: '/message',
+        meta: {
+            title: '消息'
+        },
+        component: Message
     },
     {
         path: '*',
