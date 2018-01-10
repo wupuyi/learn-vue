@@ -15,6 +15,8 @@ import About from './views/about.vue';
 import User from './views/user.vue';
 // 导入message
 import Message from './views/message.vue';
+// 导入animation
+import Animation from './views/animation.vue';
 
 Vue.use(VueRouter);
 
@@ -47,6 +49,13 @@ const Routers = [
             title: '消息'
         },
         component: Message
+    },
+    {
+        path: '/animation',
+        meta: {
+            title: 'vue过渡测试'
+        },
+        component: Animation
     },
     {
         path: '*',

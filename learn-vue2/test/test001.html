@@ -5,13 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vue</title>
+    <style>
+        .slide-fade-enter-active  {
+            transition: all .3s ease;
+        }
+        
+        .slide-fade-levae-active {
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+
+        .slide-fade-enter, .slide-fade-levae-to {
+            transform: translateX(10px);
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
     
     <div id="app">
-        <ul>
-            <li v-for="book in books">{{ book.name }}</li>
-        </ul>
+        <button @click="show = !show">
+            Toggle
+        </button>
+        <transition name="slide-fade">
+            <p v-if="show">Hello, World!</p>
+        </transition>
     </div>
 
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
@@ -19,11 +36,7 @@
         new Vue({
             el: '#app',
             data: {
-                books: [
-                    { name: '《Vue.js实战》' },
-                    { name: '《JavaScript语言精粹》' },
-                    { name: '《JavaScript高级程序设计》' }
-                ]
+                show: true
             }
         })
 

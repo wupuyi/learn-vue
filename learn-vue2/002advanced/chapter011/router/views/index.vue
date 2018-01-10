@@ -7,6 +7,7 @@
         <!-- replace不会留下History记录，导航后不能用后退键返回上一个页面 -->
         <!-- 跳转方法一 -->
         <router-link to="/about" >跳转到about</router-link>
+        <router-link to="/animation">跳转到animation</router-link>
     </div>
 </template>
 <script>
