@@ -5,10 +5,12 @@ import Hi from '@/components/Hi'
 import Hi1 from '@/components/Hi1'
 import Hi2 from '@/components/Hi2'
 import Params from '@/components/Params'
+import ErrorPage from '@/components/ErrorPage'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     // {
     //   path: '/',
@@ -53,8 +55,18 @@ export default new Router({
       }
     },
     {
-      path: '/params/:newsId/:newsTitle',
-      component: Params
+      path: '/params/:newsId(\\d+)/:newsTitle',
+      component: Params,
+      beforeEnter: (to, from, next) => {
+        console.log('我进入了params模板')
+        console.log(to)
+        console.log(from)
+        next()
+      }
+    },
+    {
+      path: '*',
+      component: ErrorPage
     }
   ]
 })

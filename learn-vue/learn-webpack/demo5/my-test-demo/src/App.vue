@@ -11,7 +11,9 @@
       <router-link :to="{name: 'hi2', params: {id: 'abc'}}">Hi+id</router-link>
     </p>
     <!-- <router-view/> -->
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
     <router-view name="left" style="float:left;width:50%;background-color:#ccc;height:300px;"></router-view>
     <router-view name="right" style="float:right;width:50%;background-color:#c0c;height:300px;"></router-view>
   </div>
@@ -31,5 +33,18 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-leave {
+  opacity: 1;
+}
+.fade-enter-active {
+  transition: opacity .5s;
+}
+.fade-leave-active {
+  opacity: 0;
+  transition: opacity .5s;
 }
 </style>

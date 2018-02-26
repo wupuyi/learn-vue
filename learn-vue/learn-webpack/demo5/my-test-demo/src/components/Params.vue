@@ -13,6 +13,14 @@ export default {
     return {
       msg: 'params page'
     }
+  },
+  beforeRouteEnter: (to, from, next) => {
+    console.log('准备进入路有模板')
+    next()
+  },
+  beforeRouteLeave: (to, from, next) => {
+    console.log('准备离开路有模板')
+    next()
   }
 }
 </script>
