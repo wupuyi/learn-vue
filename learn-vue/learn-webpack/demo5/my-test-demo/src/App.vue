@@ -6,6 +6,7 @@
       <router-link to="/">首页</router-link>|
       <router-link to="/hi">Hi页面</router-link>|
       <router-link to="/hi/hi1">-Hi页面1</router-link>|
+      <router-link to="/params/1988/puyiwu is very good">新闻新闻</router-link>|
       <!-- <router-link to="/hi/hi2">-Hi页面2</router-link> -->
       <router-link :to="{name: 'hi2', params: {id: 'abc'}}">Hi+id</router-link>
     </p>
